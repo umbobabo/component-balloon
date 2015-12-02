@@ -1,12 +1,12 @@
 {
-  "name": "@economist/component-subscribe-message",
-  "version": "1.0.1",
-  "description": "Subscribe message box with optional counter of read articles",
+  "name": "@economist/component-balloon",
+  "version": "1.0.0",
+  "description": "A balloon that can expose content when an click happens",
   "author": "The Economist (http://economist.com)",
   "license": "LicenseRef-LICENSE",
-  "repository": "git@github.com:economist-components/component-subscribe-message.git",
-  "homepage": "https://github.com/economist-components/component-subscribe-message/wiki",
-  "bugs": "https://github.com/economist-components/component-subscribe-message/issues",
+  "repository": "git@github.com:economist-components/component-balloon.git",
+  "homepage": "https://github.com/economist-components/component-balloon/wiki",
+  "bugs": "https://github.com/economist-components/component-balloon/issues",
   "main": "index.js",
   "files": [
     "*.js",
@@ -130,12 +130,12 @@
     "watch": "parallelshell 'npm run doc:watch' 'npm run prepublish:watch' 'npm run serve'"
   },
   "dependencies": {
-    "@economist/component-grid": "^1.2.2",
-    "@economist/component-palette": "^1.2.0",
-    "@economist/component-typography": "^1.5.0"
+    "@economist/component-palette": "^1.2.0"
   },
   "devDependencies": {
     "@economist/component-devpack": "^3.4.3",
+    "@economist/component-typography": "^1.5.0",
+    "@economist/component-icon": "^3.6.6",
     "babel": "^5.8.23",
     "babel-core": "^5.8.29",
     "babel-loader": "^5.3.2",

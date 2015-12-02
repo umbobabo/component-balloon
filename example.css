@@ -5,3 +5,8 @@
 body {
   -webkit-font-smoothing: antialiased;
 }
+
+.balloon-example {
+  background-color: var(--color-kiev);
+  padding: 0 100px;
+}

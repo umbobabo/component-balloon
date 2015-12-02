@@ -1,3 +1,4 @@
-# component-subscribe-message
+# component-balloon
 
-It provides a subscribe message bar with an optional counter for read articles.
+It provides a balloon wrapper that expose content on a user click on an trigger
+A tag.
