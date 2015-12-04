@@ -9,4 +9,11 @@ body {
 .balloon-example {
   background-color: var(--color-kiev);
   padding: 0 100px;
+  color: white;
+  height: 70px;
+}
+
+.balloon-content {
+  color: black;
+  width: 300px;
 }

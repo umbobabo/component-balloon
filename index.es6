@@ -6,6 +6,13 @@ export default class Balloon extends React.Component {
     return {
       className: React.PropTypes.string,
       children: React.PropTypes.node,
+      shadow: React.PropTypes.bool,
+    };
+  }
+
+  static get defaultProps() {
+    return {
+      shadow: true,
     };
   }
 
@@ -21,7 +28,12 @@ export default class Balloon extends React.Component {
           console.log(`There is already a trigger link for this balloon,
           please change your children structure to have just one A tag`);
         } else {
-          this.triggerLink = (<a {...child.props} onClick={this.toggleState.bind(self)}>
+          const className = `balloon__link${(typeof child.props.className !== `undefined`) ?
+            ` ${child.props.className}` : `` }`;
+          const newProps = Object.assign({}, this.props, { className });
+          this.triggerLink = (<a {...newProps}
+            onClick={this.toggleState.bind(self)}
+                              >
             {child.props.children}
           </a>);
         }
@@ -35,7 +47,7 @@ export default class Balloon extends React.Component {
     });
   }
 
-  calculateCentering() {
+  calculatePosition() {
     return Math.round((this.refs.balloon.offsetWidth / 2) - (this.refs.balloonContent.offsetWidth / 2));
   }
 
@@ -43,7 +55,7 @@ export default class Balloon extends React.Component {
     event.stopPropagation();
     event.preventDefault();
     const visibility = (this.state.visibility === 'not-visible') ? 'visible' : 'not-visible';
-    const position = (visibility === 'visible') ? this.calculateCentering() : this.state.position;
+    const position = (visibility === 'visible') ? this.calculatePosition() : this.state.position;
     this.setState({
       visibility,
       position,
@@ -52,12 +64,14 @@ export default class Balloon extends React.Component {
     return false;
   }
 
+  // style={{ left: this.state.position }}
   render() {
     const className = (this.props.className) ? ` ${this.props.className}` : ``;
+    const shadow = (this.props.shadow) ? ` balloon--shadow` : ``;
     return (
       <div ref="balloon" className={`balloon balloon--${this.state.visibility}${className}`}>
         {this.triggerLink}
-        <div ref="balloonContent" className="balloon-content" style={{ left: this.state.position }}>
+        <div ref="balloonContent" className={`balloon-content${shadow}`}>
           {this.contentElements}
         </div>
       </div>
