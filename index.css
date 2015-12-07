@@ -1,4 +1,5 @@
 @import '@economist/component-palette';
+@import '@economist/component-grid';
 
 :root{
   --balloon-triangle-size: 6px;

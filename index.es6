@@ -21,11 +21,10 @@ export default class Balloon extends React.Component {
 
   constructor(props) {
     super(props);
-    const self = this;
     this.state = {
       visibility: 'not-visible',
     };
-    this.props.children.map((child) => {
+    this.props.children.forEach((child) => {
       if (child.type === 'a') {
         if (this.triggerLink) {
           console.log(`There is already a trigger link for this balloon,
@@ -35,11 +34,11 @@ export default class Balloon extends React.Component {
             ` ${child.props.className}` : `` }`;
           /* eslint-disable undefined see https://github.com/eslint/espree/issues/116 */
           const newProps = {
-            ...self.props,
+            ...child.props,
             className,
           };
           this.triggerLink = (<a {...newProps}
-            onClick={this.toggleState.bind(self)}
+            onClick={this.toggleState.bind(this)}
                               >
             {child.props.children}
           </a>);
