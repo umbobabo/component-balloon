@@ -11,6 +11,8 @@ body {
   padding: 0 100px;
   color: white;
   height: 70px;
+  width: 40%;
+  display: table-cell;
 }
 
 .balloon-content {

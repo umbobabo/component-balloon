@@ -14,9 +14,17 @@
   background: var(--balloon-content__background, var(--color-berlin));
   padding: var(--subscribe-message__padding-h, var(--grid-spacing-rabbit)) var(--subscribe-message__padding-v, var(--grid-gutter-s));
   position: absolute;
+  box-sizing: border-box;
+}
+
+.balloon--position-bottom .balloon-content {
   top: 100%;
   margin-top: var(--balloon-triangle-size);
-  box-sizing: border-box;
+}
+
+.balloon--position-top .balloon-content {
+  bottom: 100%;
+  margin-top: var(--balloon-triangle-size);
 }
 
 .balloon--shadow {
@@ -39,10 +47,19 @@
   width: 0;
   height: 0;
   border-style: solid;
-  border-width: 0 var(--balloon-triangle-size) var(--balloon-triangle-size) var(--balloon-triangle-size);
   border-color: transparent transparent  var(--balloon-triangle-background, var(--color-berlin)) transparent;
   position: absolute;
-  bottom: calc(-(var(--balloon-triangle-size)));
   left: 50%;
   margin-left: calc(-(var(--balloon-triangle-size)/2));
+  border-width: 0 var(--balloon-triangle-size) var(--balloon-triangle-size) var(--balloon-triangle-size);
+  z-index: 1;
+}
+
+.balloon--position-bottom .balloon__link:after {
+  bottom: calc(-(var(--balloon-triangle-size)));
+}
+
+.balloon--position-top .balloon__link:after {
+  top: 0;
+  transform: rotate(180deg);
 }

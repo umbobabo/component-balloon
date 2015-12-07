@@ -1,4 +1,5 @@
 import React from 'react';
+import enhanceWithClickOutside from 'react-click-outside';
 /* eslint-disable no-console */
 export default class Balloon extends React.Component {
 
@@ -7,12 +8,14 @@ export default class Balloon extends React.Component {
       className: React.PropTypes.string,
       children: React.PropTypes.node,
       shadow: React.PropTypes.bool,
+      balloonPosition: React.PropTypes.oneOf(['top', 'bottom']),
     };
   }
 
   static get defaultProps() {
     return {
       shadow: true,
+      balloonPosition: 'bottom',
     };
   }
 
@@ -30,7 +33,11 @@ export default class Balloon extends React.Component {
         } else {
           const className = `balloon__link${(typeof child.props.className !== `undefined`) ?
             ` ${child.props.className}` : `` }`;
-          const newProps = Object.assign({}, this.props, { className });
+          /* eslint-disable undefined see https://github.com/eslint/espree/issues/116 */
+          const newProps = {
+            ...self.props,
+            className,
+          };
           this.triggerLink = (<a {...newProps}
             onClick={this.toggleState.bind(self)}
                               >
@@ -47,34 +54,35 @@ export default class Balloon extends React.Component {
     });
   }
 
-  calculatePosition() {
-    return Math.round((this.refs.balloon.offsetWidth / 2) - (this.refs.balloonContent.offsetWidth / 2));
+  handleClickOutside() {
+    this.setState({
+      visibility: 'not-visible',
+    });
   }
 
   toggleState(event) {
     event.stopPropagation();
     event.preventDefault();
     const visibility = (this.state.visibility === 'not-visible') ? 'visible' : 'not-visible';
-    const position = (visibility === 'visible') ? this.calculatePosition() : this.state.position;
     this.setState({
       visibility,
-      position,
     });
     // Required for preventDefault on Safari.
     return false;
   }
 
-  // style={{ left: this.state.position }}
   render() {
     const className = (this.props.className) ? ` ${this.props.className}` : ``;
     const shadow = (this.props.shadow) ? ` balloon--shadow` : ``;
     return (
-      <div ref="balloon" className={`balloon balloon--${this.state.visibility}${className}`}>
+      <div className={`balloon balloon--position-${this.props.balloonPosition} balloon--${this.state.visibility}${className}`}>
         {this.triggerLink}
-        <div ref="balloonContent" className={`balloon-content${shadow}`}>
+        <div className={`balloon-content ${shadow}`}>
           {this.contentElements}
         </div>
       </div>
     );
   }
 }
+
+export default enhanceWithClickOutside(Balloon);
