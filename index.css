@@ -1,0 +1,66 @@
+@import '@economist/component-palette';
+@import '@economist/component-grid';
+
+:root{
+  --balloon-triangle-size: 6px;
+}
+
+.balloon {
+  position: relative;
+  display: inline;
+  font-size: 1rem;
+}
+
+.balloon-content {
+  background: var(--balloon-content__background, var(--color-berlin));
+  padding: var(--subscribe-message__padding-h, var(--grid-spacing-rabbit)) var(--subscribe-message__padding-v, var(--grid-gutter-s));
+  position: absolute;
+  box-sizing: border-box;
+}
+
+.balloon--position-bottom .balloon-content {
+  top: 100%;
+  margin-top: var(--balloon-triangle-size);
+}
+
+.balloon--position-top .balloon-content {
+  bottom: 100%;
+  margin-top: var(--balloon-triangle-size);
+}
+
+.balloon--shadow {
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.19), 0 6px 10px rgba(0, 0, 0, 0.23);
+}
+
+.balloon--not-visible .balloon__link:after,
+.balloon--not-visible .balloon-content {
+  display: none;
+}
+
+.balloon--visible .balloon__link:after,
+.balloon--visible .balloon-content {
+  display: block;
+}
+
+.balloon__link:after {
+  content: '';
+  display: block;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-color: transparent transparent  var(--balloon-triangle-background, var(--color-berlin)) transparent;
+  position: absolute;
+  left: 50%;
+  margin-left: calc(-(var(--balloon-triangle-size)/2));
+  border-width: 0 var(--balloon-triangle-size) var(--balloon-triangle-size) var(--balloon-triangle-size);
+  z-index: 1;
+}
+
+.balloon--position-bottom .balloon__link:after {
+  bottom: calc(-(var(--balloon-triangle-size)));
+}
+
+.balloon--position-top .balloon__link:after {
+  top: 0;
+  transform: rotate(180deg);
+}

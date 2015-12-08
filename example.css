@@ -1,0 +1,25 @@
+@import '@economist/component-typography';
+@import '@economist/component-palette';
+@import "index.css";
+
+body {
+  -webkit-font-smoothing: antialiased;
+}
+
+.balloon-example {
+  background-color: var(--color-kiev);
+  padding: 0 100px;
+  color: white;
+  height: 70px;
+  width: 40%;
+  display: table-cell;
+}
+
+.balloon-example a {
+  color: white;
+}
+
+.balloon-content {
+  color: black;
+  width: 300px;
+}
