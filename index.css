@@ -51,7 +51,7 @@
   border-color: transparent transparent  var(--balloon-triangle-background, var(--color-berlin)) transparent;
   position: absolute;
   left: 50%;
-  margin-left: calc(-(var(--balloon-triangle-size)/2));
+  margin-left: -(var(--balloon-triangle-size));
   border-width: 0 var(--balloon-triangle-size) var(--balloon-triangle-size) var(--balloon-triangle-size);
   z-index: 1;
 }
