@@ -8,18 +8,40 @@ body {
 
 .balloon-example {
   background-color: var(--color-kiev);
-  padding: 0 100px;
   color: white;
   height: 70px;
-  width: 40%;
+  width: 25%;
   display: table-cell;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
 .balloon-example a {
   color: white;
+  border: solid white 1px;
+  padding: 10px;
+  white-space: nowrap;
 }
 
 .balloon-content {
   color: black;
   width: 300px;
+}
+
+.component-panel {
+  overflow: hidden;
+}
+
+@media (width<=800px) {
+  .no-mobile {
+    display: none !important;
+  }
+  .balloon-example {
+    display: inline-block;
+    width: 100%;
+  }
+}
+
+.right {
+  text-align: right;
 }

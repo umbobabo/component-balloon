@@ -16,6 +16,7 @@
   padding: var(--subscribe-message__padding-h, var(--grid-spacing-rabbit)) var(--subscribe-message__padding-v, var(--grid-gutter-s));
   position: absolute;
   box-sizing: border-box;
+  z-index: 1;
 }
 
 .balloon--position-bottom .balloon-content {
@@ -32,14 +33,20 @@
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.19), 0 6px 10px rgba(0, 0, 0, 0.23);
 }
 
-.balloon--not-visible .balloon__link:after,
-.balloon--not-visible .balloon-content {
+.balloon--not-visible .balloon__link:after {
   display: none;
 }
 
-.balloon--visible .balloon__link:after,
-.balloon--visible .balloon-content {
+.balloon--visible .balloon__link:after {
   display: block;
+}
+
+.balloon--not-visible .balloon-content {
+  visibility: hidden;
+}
+
+.balloon--visible .balloon-content {
+  visibility: visible;
 }
 
 .balloon__link:after {
@@ -51,7 +58,7 @@
   border-color: transparent transparent  var(--balloon-triangle-background, var(--color-berlin)) transparent;
   position: absolute;
   left: 50%;
-  margin-left: calc(-(var(--balloon-triangle-size)/2));
+  margin-left: -var(--balloon-triangle-size);
   border-width: 0 var(--balloon-triangle-size) var(--balloon-triangle-size) var(--balloon-triangle-size);
   z-index: 1;
 }
