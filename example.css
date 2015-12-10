@@ -1,5 +1,6 @@
 @import '@economist/component-typography';
 @import '@economist/component-palette';
+@import '@economist/component-link-button';
 @import "index.css";
 
 body {

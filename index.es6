@@ -1,4 +1,5 @@
 import React from 'react';
+import Button from '@economist/component-link-button';
 import enhanceWithClickOutside from 'react-click-outside';
 /* eslint-disable no-console */
 export default class Balloon extends React.Component {
@@ -25,7 +26,7 @@ export default class Balloon extends React.Component {
       visibility: 'not-visible',
     };
     this.props.children.forEach((child) => {
-      if (child.type === 'a') {
+      if (child.type === 'a' || child.type.name === 'Button') {
         if (this.triggerLink) {
           console.log(`There is already a trigger link for this balloon,
           please change your children structure to have just one A tag`);
@@ -37,11 +38,19 @@ export default class Balloon extends React.Component {
             ...child.props,
             className,
           };
-          this.triggerLink = (<a {...newProps}
-            onClick={this.toggleState.bind(this)}
-                              >
-            {child.props.children}
-          </a>);
+          if (child.type === 'a') {
+            this.triggerLink = (<a {...newProps}
+              onClick={this.toggleState.bind(this)}
+                                >
+              {child.props.children}
+            </a>);
+          } else {
+            this.triggerLink = (<Button {...newProps}
+              onClick={this.toggleState.bind(this)}
+                                >
+              {child.props.children}
+            </Button>);
+          }
         }
       } else if (this.contentElements) {
         console.log(`There is already a content element for this balloon,
