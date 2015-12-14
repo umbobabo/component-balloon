@@ -26,6 +26,22 @@ export default (
         </div>
       </Balloon>
     </div>
+    <div className="balloon-example right">
+      <Balloon
+        unstyled
+        balloonPosition="top"
+        className="customClassname"
+      >
+        <Button
+          href="https://www.economist.com/user/login" className="balloon-link"
+        >
+          Unstyled
+        </Button>
+        <div>
+          The position of the balloon, as its width, can be styled by the context.
+        </div>
+      </Balloon>
+    </div>
     <div className="balloon-example no-mobile">
     </div>
   </div>
