@@ -13,7 +13,7 @@
 
 .balloon-content {
   background: var(--balloon-content__background, var(--color-berlin));
-  padding: var(--subscribe-message__padding-h, var(--grid-spacing-rabbit)) var(--subscribe-message__padding-v, var(--grid-gutter-s));
+  padding: var(--subscribe-message__padding-h, 2em) var(--subscribe-message__padding-v, var(--grid-gutter-s));
   position: absolute;
   box-sizing: border-box;
   z-index: 1;
@@ -21,12 +21,10 @@
 
 .balloon--position-bottom .balloon-content {
   top: 100%;
-  margin-top: var(--balloon-triangle-size);
 }
 
 .balloon--position-top .balloon-content {
   bottom: 100%;
-  margin-top: var(--balloon-triangle-size);
 }
 
 .balloon--shadow {
@@ -64,7 +62,7 @@
 }
 
 .balloon--position-bottom .balloon__link:after {
-  bottom: calc(-(var(--balloon-triangle-size)));
+  bottom: 0;
 }
 
 .balloon--position-top .balloon__link:after {
