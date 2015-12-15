@@ -11,6 +11,7 @@ export default class Balloon extends React.Component {
       shadow: React.PropTypes.bool,
       balloonPosition: React.PropTypes.oneOf(['top', 'bottom']),
       unstyled: React.PropTypes.bool,
+      prefix: React.PropTypes.string,
     };
   }
 
@@ -19,6 +20,7 @@ export default class Balloon extends React.Component {
       shadow: true,
       balloonPosition: 'bottom',
       unstyled: false,
+      prefix: 'balloon',
     };
   }
 
@@ -33,8 +35,7 @@ export default class Balloon extends React.Component {
           console.log(`There is already a trigger link for this balloon,
           please change your children structure to have just one A tag`);
         } else {
-          const prefix = (this.props.className) ? `${this.props.className}` : `balloon`;
-          const className = `${prefix}__link${(typeof child.props.className !== `undefined`) ?
+          const className = `${this.props.prefix}__link${(typeof child.props.className !== `undefined`) ?
             ` ${child.props.className}` : `` }`;
           /* eslint-disable undefined see https://github.com/eslint/espree/issues/116 */
           const newProps = {
@@ -111,7 +112,7 @@ export default class Balloon extends React.Component {
 
   render() {
     const className = (this.props.className) ? ` ${this.props.className}` : ``;
-    const prefix = (this.props.className) ? ` ${this.props.className}--` : ` balloon--`;
+    const prefix = ` ${this.props.prefix}--`;
     const shadow = (this.props.shadow) ? ` ${prefix}shadow` : ``;
     const balloonDefaultClassname = (this.props.unstyled) ? '' : 'balloon ';
     const balloonContentDefaultClassname = (this.props.unstyled) ? 'content ' : 'balloon-content ';

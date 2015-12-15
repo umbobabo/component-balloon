@@ -47,6 +47,6 @@ body {
   text-align: right;
 }
 
-.customClassname.customClassname--not-visible .content {
+.customClassname--not-visible .content {
   display: none;
 }

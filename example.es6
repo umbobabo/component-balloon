@@ -30,7 +30,7 @@ export default (
       <Balloon
         unstyled
         balloonPosition="top"
-        className="customClassname"
+        prefix="customClassname"
       >
         <Button
           href="https://www.economist.com/user/login" className="balloon-link"
