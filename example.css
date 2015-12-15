@@ -1,0 +1,52 @@
+@import '@economist/component-typography';
+@import '@economist/component-palette';
+@import '@economist/component-link-button';
+@import "index.css";
+
+body {
+  -webkit-font-smoothing: antialiased;
+}
+
+.balloon-example {
+  background-color: var(--color-kiev);
+  color: white;
+  height: 70px;
+  width: 20%;
+  display: table-cell;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.balloon-example a {
+  color: white;
+  border: solid white 1px;
+  padding: 10px;
+  white-space: nowrap;
+}
+
+.balloon-content {
+  color: black;
+  width: 300px;
+}
+
+.component-panel {
+  overflow: hidden;
+}
+
+@media (width<=800px) {
+  .no-mobile {
+    display: none !important;
+  }
+  .balloon-example {
+    display: inline-block;
+    width: 100%;
+  }
+}
+
+.right {
+  text-align: right;
+}
+
+.customClassname--not-visible .content {
+  display: none;
+}
