@@ -30,7 +30,7 @@ export default class Balloon extends React.Component {
       visibility: 'not-visible',
     };
     this.props.children.forEach((child) => {
-      if (child.type === 'a' || child.type.name === 'Button') {
+      if (child.type === 'a' || child.type === Button) {
         if (this.triggerLink) {
           console.log(`There is already a trigger link for this balloon,
           please change your children structure to have just one A tag`);
