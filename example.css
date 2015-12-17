@@ -1,5 +1,6 @@
 @import '@economist/component-typography';
 @import '@economist/component-palette';
+@import '@economist/component-link-button';
 @import "index.css";
 
 body {
@@ -10,7 +11,7 @@ body {
   background-color: var(--color-kiev);
   color: white;
   height: 70px;
-  width: 25%;
+  width: 20%;
   display: table-cell;
   padding: 20px;
   box-sizing: border-box;
@@ -44,4 +45,8 @@ body {
 
 .right {
   text-align: right;
+}
+
+.customClassname--not-visible .content {
+  display: none;
 }

@@ -1,4 +1,5 @@
 import React from 'react';
+import Button from '@economist/component-link-button';
 import enhanceWithClickOutside from 'react-click-outside';
 /* eslint-disable no-console */
 export default class Balloon extends React.Component {
@@ -6,9 +7,11 @@ export default class Balloon extends React.Component {
   static get propTypes() {
     return {
       className: React.PropTypes.string,
-      children: React.PropTypes.node,
+      children: React.PropTypes.node.isRequired,
       shadow: React.PropTypes.bool,
       balloonPosition: React.PropTypes.oneOf(['top', 'bottom']),
+      unstyled: React.PropTypes.bool,
+      prefix: React.PropTypes.string,
     };
   }
 
@@ -16,6 +19,8 @@ export default class Balloon extends React.Component {
     return {
       shadow: true,
       balloonPosition: 'bottom',
+      unstyled: false,
+      prefix: 'balloon',
     };
   }
 
@@ -25,23 +30,31 @@ export default class Balloon extends React.Component {
       visibility: 'not-visible',
     };
     this.props.children.forEach((child) => {
-      if (child.type === 'a') {
+      if (child.type === 'a' || child.type === Button) {
         if (this.triggerLink) {
           console.log(`There is already a trigger link for this balloon,
           please change your children structure to have just one A tag`);
         } else {
-          const className = `balloon__link${(typeof child.props.className !== `undefined`) ?
+          const className = `${this.props.prefix}__link${(typeof child.props.className !== `undefined`) ?
             ` ${child.props.className}` : `` }`;
           /* eslint-disable undefined see https://github.com/eslint/espree/issues/116 */
           const newProps = {
             ...child.props,
             className,
           };
-          this.triggerLink = (<a {...newProps}
-            onClick={this.toggleState.bind(this)}
-                              >
-            {child.props.children}
-          </a>);
+          if (child.type === 'a') {
+            this.triggerLink = (<a {...newProps}
+              onClick={this.toggleState.bind(this)}
+                                >
+              {child.props.children}
+            </a>);
+          } else {
+            this.triggerLink = (<Button {...newProps}
+              onClick={this.toggleState.bind(this)}
+                                >
+              {child.props.children}
+            </Button>);
+          }
         }
       } else if (this.contentElements) {
         console.log(`There is already a content element for this balloon,
@@ -88,7 +101,7 @@ export default class Balloon extends React.Component {
     event.stopPropagation();
     event.preventDefault();
     const visibility = (this.state.visibility === 'not-visible') ? 'visible' : 'not-visible';
-    const position = (visibility === 'visible') ? this.calculatePosition() : {};
+    const position = (visibility === 'visible' && this.props.unstyled === false) ? this.calculatePosition() : {};
     this.setState({
       visibility,
       position,
@@ -99,11 +112,14 @@ export default class Balloon extends React.Component {
 
   render() {
     const className = (this.props.className) ? ` ${this.props.className}` : ``;
-    const shadow = (this.props.shadow) ? ` balloon--shadow` : ``;
+    const prefix = ` ${this.props.prefix}--`;
+    const shadow = (this.props.shadow) ? ` ${prefix}shadow` : ``;
+    const balloonDefaultClassname = (this.props.unstyled) ? '' : 'balloon ';
+    const balloonContentDefaultClassname = (this.props.unstyled) ? 'content ' : 'balloon-content ';
     return (
-      <div ref="balloon" className={`balloon balloon--position-${this.props.balloonPosition} balloon--${this.state.visibility}${className}`}>
+      <div ref="balloon" className={`${balloonDefaultClassname}${prefix}position-${this.props.balloonPosition} ${prefix}${this.state.visibility}${className}`}>
         {this.triggerLink}
-        <div ref="balloonContent" className={`balloon-content ${shadow}`} style={this.state.position}>
+        <div ref="balloonContent" className={`${balloonContentDefaultClassname}${shadow}`} style={this.state.position}>
           {this.contentElements}
         </div>
       </div>

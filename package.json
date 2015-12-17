@@ -1,6 +1,6 @@
 {
   "name": "@economist/component-balloon",
-  "version": "1.1.0",
+  "version": "1.3.1",
   "description": "A balloon that can expose content when an click happens",
   "author": "The Economist (http://economist.com)",
   "license": "LicenseRef-LICENSE",
@@ -132,6 +132,7 @@
   "dependencies": {
     "@economist/component-grid": "^1.3.0",
     "@economist/component-palette": "^1.2.0",
+    "@economist/component-link-button": "^1.0.0",
     "react-click-outside": "^2.1.0"
   },
   "devDependencies": {
@@ -167,8 +168,7 @@
     "watchify": "^3.4.0"
   },
   "peerDependencies": {
-    "react": "^0.14.3",
-    "react-dom": "^0.14.3"
+    "react": "^0.14.3"
   },
   "pre-commit": [
     "lint"
