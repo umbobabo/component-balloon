@@ -111,12 +111,7 @@ export default class Balloon extends React.Component {
 
   hoverHandler(visibility) {
     clearTimeout(this.timeout);
-    this.timeout = setTimeout(
-      () => {
-        this.changeVisibility(visibility);
-      },
-      this.showOnHoverDelay
-    );
+    this.timeout = setTimeout(this.changeVisibility, this.showOnHoverDelay, visibility);
   }
 
   render() {
