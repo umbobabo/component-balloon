@@ -12,6 +12,8 @@ export default class Balloon extends React.Component {
       balloonPosition: React.PropTypes.oneOf(['top', 'bottom']),
       unstyled: React.PropTypes.bool,
       prefix: React.PropTypes.string,
+      showOnHover: React.PropTypes.bool,
+      showOnHoverDelay: React.PropTypes.number,
     };
   }
 
@@ -21,6 +23,7 @@ export default class Balloon extends React.Component {
       balloonPosition: 'bottom',
       unstyled: false,
       prefix: 'balloon',
+      showOnHoverDelay: 100,
     };
   }
 
@@ -29,6 +32,12 @@ export default class Balloon extends React.Component {
     this.state = {
       visibility: 'not-visible',
     };
+
+    this.hoverHandlers = (this.props.showOnHover) ? {
+      onMouseOver: this.changeVisibility.bind(this, 'visible'),
+      onMouseOut: this.changeVisibility.bind(this, 'not-visible'),
+    } : {};
+
     this.props.children.forEach((child) => {
       if (child.type === 'a' || child.type === Button) {
         if (this.triggerLink) {
@@ -41,7 +50,9 @@ export default class Balloon extends React.Component {
           const newProps = {
             ...child.props,
             className,
+            ...this.hoverHandlers,
           };
+
           if (child.type === 'a') {
             this.triggerLink = (<a {...newProps}
               onClick={this.toggleState.bind(this)}
@@ -100,14 +111,31 @@ export default class Balloon extends React.Component {
   toggleState(event) {
     event.stopPropagation();
     event.preventDefault();
-    const visibility = (this.state.visibility === 'not-visible') ? 'visible' : 'not-visible';
+    this.changeVisibility();
+    // Required for preventDefault on Safari.
+    return false;
+  }
+
+  changeVisibility(visibility) {
+    if(!visibility){
+      visibility = (this.state.visibility === 'not-visible') ? 'visible' : 'not-visible';
+    }
     const position = (visibility === 'visible' && this.props.unstyled === false) ? this.calculatePosition() : {};
     this.setState({
       visibility,
       position,
     });
-    // Required for preventDefault on Safari.
-    return false;
+  }
+
+  hoverHandler(visibility) {
+    const self = this;
+    clearTimeout(this.timeout);
+    this.timeout = setTimeout(
+      () => {
+        self.changeVisibility(visibility);
+      },
+      self.showOnHoverDelay
+    );
   }
 
   render() {
@@ -119,7 +147,12 @@ export default class Balloon extends React.Component {
     return (
       <div ref="balloon" className={`${balloonDefaultClassname}${prefix}position-${this.props.balloonPosition} ${prefix}${this.state.visibility}${className}`}>
         {this.triggerLink}
-        <div ref="balloonContent" className={`${balloonContentDefaultClassname}${shadow}`} style={this.state.position}>
+        <div
+          ref="balloonContent"
+          className={`${balloonContentDefaultClassname}${shadow}`}
+          style={this.state.position}
+          {...this.hoverHandlers}
+        >
           {this.contentElements}
         </div>
       </div>

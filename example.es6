@@ -17,9 +17,9 @@ export default (
       </Balloon>
     </div>
     <div className="balloon-example right">
-      <Balloon balloonPosition="top">
+      <Balloon balloonPosition="top" showOnHover>
         <Button href="https://www.economist.com/user/login" className="balloon-link">
-          Top positioned balloon
+          Top positioned balloon show on Over
         </Button>
         <div>
           The position of the balloon, as its width, can be styled by the context.
