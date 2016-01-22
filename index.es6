@@ -7,7 +7,12 @@ export default class Balloon extends React.Component {
   static get propTypes() {
     return {
       className: React.PropTypes.string,
-      children: React.PropTypes.node.isRequired,
+      children: (props, propName, componentName) => {
+        var prop = props[propName];
+        if (React.Children.count(prop) !== 2) {
+          return new Error(`${componentName} should have exactly 2 children`);
+        }
+      },
       shadow: React.PropTypes.bool,
       balloonPosition: React.PropTypes.oneOf(['top', 'bottom']),
       unstyled: React.PropTypes.bool,
@@ -37,10 +42,6 @@ export default class Balloon extends React.Component {
       onMouseOver: this.changeVisibility.bind(this, 'visible'),
       onMouseOut: this.changeVisibility.bind(this, 'not-visible'),
     } : {};
-
-    if (this.props.children.length != 2) {
-      console.error('Balloon only takes 2 children. Please pass a trigger and a content element.');
-    }
   }
 
   handleClickOutside() {
@@ -107,7 +108,7 @@ export default class Balloon extends React.Component {
       ...this.props.children[0].props,
       ...this.hoverHandlers,
     };
-    TriggerLinkNewProps.className = TriggerLinkClassName;    
+    TriggerLinkNewProps.className = TriggerLinkClassName;
     const className = (this.props.className) ? ` ${this.props.className}` : ``;
     const prefix = ` ${this.props.prefix}--`;
     const shadow = (this.props.shadow) ? ` ${prefix}shadow` : ``;
