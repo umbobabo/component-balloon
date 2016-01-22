@@ -38,22 +38,6 @@ export default class Balloon extends React.Component {
       onMouseOut: this.changeVisibility.bind(this, 'not-visible'),
     } : {};
 
-    const TriggerLink = this.props.children[0].type;
-    const className = `${this.props.prefix}__link${(typeof this.props.children[0].props.className !== `undefined`) ?
-      ` ${this.props.children[0].props.className}` : `` }`;
-    /* eslint-disable undefined see https://github.com/eslint/espree/issues/116 */
-    const newProps = {
-      ...this.props.children[0].props,
-      className,
-      ...this.hoverHandlers,
-    };
-    this.triggerLink = (<TriggerLink {...newProps}
-        onClick={this.toggleState.bind(this)}
-                        >
-    </TriggerLink>);
-
-    this.contentElements = this.props.children[1];
-
     if (this.props.children.length != 2) {
       console.error('Balloon only takes 2 children. Please pass a trigger and a content element.');
     }
@@ -115,6 +99,15 @@ export default class Balloon extends React.Component {
   }
 
   render() {
+    const TriggerLink = this.props.children[0].type;
+    const TriggerLinkClassName = `${this.props.prefix}__link${(typeof this.props.children[0].props.className !== `undefined`) ?
+      ` ${this.props.children[0].props.className}` : `` }`;
+    /* eslint-disable undefined see https://github.com/eslint/espree/issues/116 */
+    const TriggerLinkNewProps = {
+      ...this.props.children[0].props,
+      ...this.hoverHandlers,
+    };
+    TriggerLinkNewProps.className = TriggerLinkClassName;    
     const className = (this.props.className) ? ` ${this.props.className}` : ``;
     const prefix = ` ${this.props.prefix}--`;
     const shadow = (this.props.shadow) ? ` ${prefix}shadow` : ``;
@@ -122,14 +115,16 @@ export default class Balloon extends React.Component {
     const balloonContentDefaultClassname = (this.props.unstyled) ? 'content ' : 'balloon-content ';
     return (
       <div ref="balloon" className={`${balloonDefaultClassname}${prefix}position-${this.props.balloonPosition} ${prefix}${this.state.visibility}${className}`}>
-        {this.triggerLink}
+        <TriggerLink {...TriggerLinkNewProps}
+          onClick={this.toggleState.bind(this)}
+        />
         <div
           ref="balloonContent"
           className={`${balloonContentDefaultClassname}${shadow}`}
           style={this.state.position}
           {...this.hoverHandlers}
         >
-          {this.contentElements}
+          {this.props.children[1]}
         </div>
       </div>
     );
