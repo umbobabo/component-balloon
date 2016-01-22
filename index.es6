@@ -38,43 +38,25 @@ export default class Balloon extends React.Component {
       onMouseOut: this.changeVisibility.bind(this, 'not-visible'),
     } : {};
 
-    this.props.children.forEach((child) => {
-      if (child.type === 'a' || child.type === Button) {
-        if (this.triggerLink) {
-          console.log(`There is already a trigger link for this balloon,
-          please change your children structure to have just one A tag`);
-        } else {
-          const className = `${this.props.prefix}__link${(typeof child.props.className !== `undefined`) ?
-            ` ${child.props.className}` : `` }`;
-          /* eslint-disable undefined see https://github.com/eslint/espree/issues/116 */
-          const newProps = {
-            ...child.props,
-            className,
-            ...this.hoverHandlers,
-          };
+    const TriggerLink = this.props.children[0].type;
+    const className = `${this.props.prefix}__link${(typeof this.props.children[0].props.className !== `undefined`) ?
+      ` ${this.props.children[0].props.className}` : `` }`;
+    /* eslint-disable undefined see https://github.com/eslint/espree/issues/116 */
+    const newProps = {
+      ...this.props.children[0].props,
+      className,
+      ...this.hoverHandlers,
+    };
+    this.triggerLink = (<TriggerLink {...newProps}
+        onClick={this.toggleState.bind(this)}
+                        >
+    </TriggerLink>);
 
-          if (child.type === 'a') {
-            this.triggerLink = (<a {...newProps}
-              onClick={this.toggleState.bind(this)}
-                                >
-              {child.props.children}
-            </a>);
-          } else {
-            this.triggerLink = (<Button {...newProps}
-              onClick={this.toggleState.bind(this)}
-                                >
-              {child.props.children}
-            </Button>);
-          }
-        }
-      } else if (this.contentElements) {
-        console.log(`There is already a content element for this balloon,
-        please change your children structure to have just one non-A-tag
-        element`);
-      } else {
-        this.contentElements = child;
-      }
-    });
+    this.contentElements = this.props.children[1];
+
+    if (this.props.children.length != 2) {
+      console.error('Balloon only takes 2 children. Please pass a trigger and a content element.');
+    }
   }
 
   handleClickOutside() {
