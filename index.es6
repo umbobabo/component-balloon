@@ -7,18 +7,14 @@ export default class Balloon extends React.Component {
   static get propTypes() {
     return {
       className: React.PropTypes.string,
-      children: (props, propName, componentName) => {
-        var prop = props[propName];
-        if (React.Children.count(prop) !== 2) {
-          return new Error(`${componentName} should have exactly 2 children`);
-        }
-      },
+      children: React.PropTypes.node,
       shadow: React.PropTypes.bool,
       balloonPosition: React.PropTypes.oneOf(['top', 'bottom']),
       unstyled: React.PropTypes.bool,
       prefix: React.PropTypes.string,
       showOnHover: React.PropTypes.bool,
       showOnHoverDelay: React.PropTypes.number,
+      trigger: React.PropTypes.element.isRequired,
     };
   }
 
@@ -100,12 +96,12 @@ export default class Balloon extends React.Component {
   }
 
   render() {
-    const TriggerLink = this.props.children[0].type;
-    const TriggerLinkClassName = `${this.props.prefix}__link${(typeof this.props.children[0].props.className !== `undefined`) ?
-      ` ${this.props.children[0].props.className}` : `` }`;
+    const TriggerLink = this.props.trigger.type;
+    const TriggerLinkClassName = `${this.props.prefix}__link${(typeof this.props.trigger.props.className !== `undefined`) ?
+      ` ${this.props.trigger.props.className}` : `` }`;
     /* eslint-disable undefined see https://github.com/eslint/espree/issues/116 */
     const TriggerLinkNewProps = {
-      ...this.props.children[0].props,
+      ...this.props.trigger.props,
       ...this.hoverHandlers,
     };
     TriggerLinkNewProps.className = TriggerLinkClassName;
@@ -125,7 +121,7 @@ export default class Balloon extends React.Component {
           style={this.state.position}
           {...this.hoverHandlers}
         >
-          {this.props.children[1]}
+          {this.props.children}
         </div>
       </div>
     );

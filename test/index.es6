@@ -7,33 +7,15 @@ describe(`A Balloon`, () => {
     it('is compatible with React.Component', () => {
       Balloon.should.be.a('function').and.respondTo('render');
     });
-    it(`it's renders a React element`, () => {
-      React.isValidElement(<Balloon/>).should.equal(true);
-    });
-    describe(`it output html`, () => {
-      const shallowRenderer = TestUtils.createRenderer();
-      const ballonHtml = (<Balloon>
-        <a href="https://www.economist.com/user/login">
-          TriggeLink
-        </a>
-        <div>
-          BalloonContent
-        </div>
-      </Balloon>);
-      shallowRenderer.render(ballonHtml);
-      const balloon = shallowRenderer.getRenderOutput();
-      const trigger = balloon.props.children[0];
-      const content = balloon.props.children[1];
-
-      it(`it have a link as a trigger element`, () => {
-        trigger.type.should.equal('a');
-        trigger.props.children.should.equal('TriggeLink');
-        trigger.props.href.should.equal('https://www.economist.com/user/login');
-      });
-      it(`it have content element`, () => {
-        content.type.should.not.equal('a');
-        content.props.children.should.equal('BalloonContent');
-      });
+    it(`it return the trigger before the content element`, () => {
+      const trigger = (<a>Trigger link</a>);
+      const balloon = (<Balloon trigger={trigger}>
+          <div>Content element</div>
+        </Balloon>);
+      balloon.props.trigger.type.should.equal('a');
+      balloon.props.trigger.props.children.should.equal('Trigger link');
+      balloon.props.children.type.should.equal('div');
+      balloon.props.children.props.children.should.equal('Content element');
     });
   });
 });
