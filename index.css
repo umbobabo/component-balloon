@@ -47,25 +47,24 @@
   visibility: visible;
 }
 
-.balloon__link:after {
-  content: '';
+.balloon--position-bottom .balloon__triangle {
+  bottom: 0;
+}
+
+.balloon--position-top .balloon__triangle {
+  transform: rotate(180deg);
+  top: 0;
+}
+
+.balloon__triangle {
+  position: absolute;
   display: block;
   width: 0;
   height: 0;
   border-style: solid;
   border-color: transparent transparent  var(--balloon-triangle-background, var(--color-berlin)) transparent;
-  position: absolute;
   left: 50%;
   margin-left: -var(--balloon-triangle-size);
   border-width: 0 var(--balloon-triangle-size) var(--balloon-triangle-size) var(--balloon-triangle-size);
-  z-index: 1;
-}
-
-.balloon--position-bottom .balloon__link:after {
-  bottom: 0;
-}
-
-.balloon--position-top .balloon__link:after {
-  top: 0;
-  transform: rotate(180deg);
+  z-index: 2;
 }
