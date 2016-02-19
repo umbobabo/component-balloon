@@ -1,6 +1,7 @@
 import React from 'react';
 import Button from '@economist/component-link-button';
 import enhanceWithClickOutside from 'react-click-outside';
+import classnames from 'classnames';
 /* eslint-disable no-console */
 export default class Balloon extends React.Component {
 
@@ -47,10 +48,6 @@ export default class Balloon extends React.Component {
   }
 
   calculatePosition() {
-    // Reset position before calculate the new position.
-    this.setState({
-      position: {},
-    });
     const availableWidth = document.body.getBoundingClientRect().width;
     const balloon = this.refs.balloon;
     const balloonContent = this.refs.balloonContent;
@@ -80,7 +77,7 @@ export default class Balloon extends React.Component {
   }
 
   changeVisibility(visibility) {
-    if(!visibility){
+    if (!visibility) {
       visibility = (this.state.visibility === 'not-visible') ? 'visible' : 'not-visible';
     }
     const position = (visibility === 'visible' && this.props.unstyled === false) ? this.calculatePosition() : {};
@@ -88,11 +85,6 @@ export default class Balloon extends React.Component {
       visibility,
       position,
     });
-  }
-
-  hoverHandler(visibility) {
-    clearTimeout(this.timeout);
-    this.timeout = setTimeout(this.changeVisibility, this.showOnHoverDelay, visibility);
   }
 
   render() {
@@ -105,19 +97,23 @@ export default class Balloon extends React.Component {
       ...this.hoverHandlers,
     };
     TriggerLinkNewProps.className = TriggerLinkClassName;
-    const className = (this.props.className) ? ` ${this.props.className}` : ``;
-    const prefix = ` ${this.props.prefix}--`;
-    const shadow = (this.props.shadow) ? ` ${prefix}shadow` : ``;
-    const balloonDefaultClassname = (this.props.unstyled) ? '' : 'balloon ';
-    const balloonContentDefaultClassname = (this.props.unstyled) ? 'content ' : 'balloon-content ';
+    const prefix = `${this.props.prefix}--`;
+    const visibility = `${prefix}${this.state.visibility}`;
+    const shadow = `${prefix}shadow`;
+    const position = `${prefix}position-${this.props.balloonPosition}`;
+    const balloonContentClassname = (this.props.unstyled) ? 'content' : 'balloon-content';
+    const triangleShouldDisplay = this.state.visibility === 'visible' && !this.props.unstyled;
     return (
-      <div ref="balloon" className={`${balloonDefaultClassname}${prefix}position-${this.props.balloonPosition} ${prefix}${this.state.visibility}${className}`}>
+      <div ref="balloon" className={classnames(position, visibility,
+        { balloon: !this.props.unstyled, [this.props.className]: this.props.className }
+      )}>
+        { triangleShouldDisplay && <div className="balloon__triangle" /> }
         <TriggerLink {...TriggerLinkNewProps}
           onClick={this.toggleState.bind(this)}
         />
         <div
           ref="balloonContent"
-          className={`${balloonContentDefaultClassname}${shadow}`}
+          className={classnames(balloonContentClassname, { [shadow]: this.props.shadow } )}
           style={this.state.position}
           {...this.hoverHandlers}
         >
