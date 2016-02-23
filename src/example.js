@@ -1,20 +1,22 @@
-import Balloon from './index';
+import Balloon from './';
 import Button from '@economist/component-link-button';
 import React from 'react';
 
-
-const exampleOneTrigger = (<a href="https://www.economist.com/user/login" className="balloon-link">
-                            Bottom positioned balloon
-                           </a>);
-const exampleTwoTrigger = (<Button href="https://www.economist.com/user/login" className="balloon-link">
-                             Top positioned balloon show on Over
-                           </Button>);
-const exampleThreeTrigger = (<Button
-  href="https://www.economist.com/user/login"
-  className="balloon-link"
-                             >
-                              Unstyled
-                             </Button>);
+const exampleOneTrigger = (
+  <a href="https://www.economist.com/user/login" className="balloon-link">
+    Bottom positioned balloon
+  </a>
+);
+const exampleTwoTrigger = (
+  <Button href="https://www.economist.com/user/login" className="balloon-link">
+    Top positioned balloon show on Over
+  </Button>
+);
+const exampleThreeTrigger = (
+  <Button href="https://www.economist.com/user/login" className="balloon-link">
+    Unstyled
+  </Button>
+);
 export default (
   <div>
     <div className="balloon-example no-mobile">
@@ -37,7 +39,7 @@ export default (
       <Balloon
         unstyled
         balloonPosition="top"
-        prefix="customClassname"
+        prefix="custom-classname"
         trigger={exampleThreeTrigger}
       >
         <div>
