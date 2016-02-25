@@ -42,9 +42,7 @@ export default class Balloon extends React.Component {
     });
   }
 
-  calculatePosition() {
-    const availableWidth = document.body.getBoundingClientRect().width;
-    const { balloon, balloonContent } = this.refs;
+  calculatePosition(availableWidth, balloon, balloonContent) {
     const balloonContentWidth = balloonContent.offsetWidth;
     const TWO = 2;
     const halfBalloonWidth = balloon.offsetWidth / TWO;
@@ -77,7 +75,13 @@ export default class Balloon extends React.Component {
     if (!visibility) {
       visibility = (this.state.visibility === 'not-visible') ? 'visible' : 'not-visible';
     }
-    const position = (visibility === 'visible' && this.props.unstyled === false) ? this.calculatePosition() : {};
+    const position = (visibility === 'visible' && this.props.unstyled === false) ?
+      this.calculatePosition(
+        document.body.getBoundingClientRect().width,
+        this.refs.balloon,
+        this.refs.balloonContent
+      ) :
+      {};
     this.setState({
       visibility,
       position,
