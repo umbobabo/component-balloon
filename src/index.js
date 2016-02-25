@@ -44,14 +44,13 @@ export default class Balloon extends React.Component {
 
   calculatePosition() {
     const availableWidth = document.body.getBoundingClientRect().width;
-    const balloon = this.refs.balloon;
-    const balloonContent = this.refs.balloonContent;
+    const { balloon, balloonContent } = this.refs;
     const balloonContentWidth = balloonContent.offsetWidth;
-    const halfWidthDivider = 2;
-    const halfBalloonWidth = balloon.offsetWidth / halfWidthDivider;
-    const halfBalloonContentWidth = balloonContentWidth / halfWidthDivider;
-    const centerLeftOffsetBalloon = balloon.offsetLeft + halfBalloonContentWidth;
-    const centerRightOffsetBalloon = availableWidth - (balloon.offsetLeft + balloon.offsetWidth / halfWidthDivider);
+    const TWO = 2;
+    const halfBalloonWidth = balloon.offsetWidth / TWO;
+    const halfBalloonContentWidth = balloonContentWidth / TWO;
+    const centerLeftOffsetBalloon = balloon.offsetLeft + halfBalloonWidth;
+    const centerRightOffsetBalloon = availableWidth - (balloon.offsetLeft + balloon.offsetWidth / TWO);
     const position = {};
     if (centerLeftOffsetBalloon < halfBalloonContentWidth) {
       // Put Ballon on the left or will be partially not visible.
