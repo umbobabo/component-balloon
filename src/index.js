@@ -123,7 +123,7 @@ export default class Balloon extends React.Component {
       <div ref="balloon" className={rootClassNames}>
         <span style={{ position: 'relative' }}>
           {triangleElement}
-          <TriggerLink {...triggerLinkNewProps}/>
+          <TriggerLink {...triggerLinkNewProps} />
         </span>
         <div
           ref="balloonContent"
