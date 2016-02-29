@@ -13,10 +13,12 @@ export default class Balloon extends React.Component {
     prefix: React.PropTypes.string,
     showOnHover: React.PropTypes.bool,
     showOnHoverDelay: React.PropTypes.number,
+    dynamicPositioning: React.PropTypes.bool,
     trigger: React.PropTypes.element.isRequired,
   }
 
   static defaultProps = {
+    dynamicPositioning: true,
     shadow: true,
     balloonPosition: 'bottom',
     unstyled: false,
@@ -72,10 +74,11 @@ export default class Balloon extends React.Component {
   }
 
   changeVisibility(visibility) {
+    const { dynamicPositioning, unstyled } = this.props;
     if (!visibility) {
       visibility = (this.state.visibility === 'not-visible') ? 'visible' : 'not-visible';
     }
-    const position = (visibility === 'visible' && this.props.unstyled === false) ?
+    const position = (visibility === 'visible' && unstyled === false && dynamicPositioning) ?
       this.calculatePosition(
         document.body.getBoundingClientRect().width,
         this.refs.balloon,
