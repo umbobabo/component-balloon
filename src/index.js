@@ -42,16 +42,13 @@ export default class Balloon extends React.Component {
     });
   }
 
-  calculatePosition() {
-    const availableWidth = document.body.getBoundingClientRect().width;
-    const balloon = this.refs.balloon;
-    const balloonContent = this.refs.balloonContent;
+  calculatePosition(availableWidth, balloon, balloonContent) {
     const balloonContentWidth = balloonContent.offsetWidth;
-    const halfWidthDivider = 2;
-    const halfBalloonWidth = balloon.offsetWidth / halfWidthDivider;
-    const halfBalloonContentWidth = balloonContentWidth / halfWidthDivider;
-    const centerLeftOffsetBalloon = balloon.offsetLeft + halfBalloonContentWidth;
-    const centerRightOffsetBalloon = availableWidth - (balloon.offsetLeft + balloon.offsetWidth / halfWidthDivider);
+    const TWO = 2;
+    const halfBalloonWidth = balloon.offsetWidth / TWO;
+    const halfBalloonContentWidth = balloonContentWidth / TWO;
+    const centerLeftOffsetBalloon = balloon.offsetLeft + halfBalloonWidth;
+    const centerRightOffsetBalloon = availableWidth - (balloon.offsetLeft + balloon.offsetWidth / TWO);
     const position = {};
     if (centerLeftOffsetBalloon < halfBalloonContentWidth) {
       // Put Ballon on the left or will be partially not visible.
@@ -78,7 +75,13 @@ export default class Balloon extends React.Component {
     if (!visibility) {
       visibility = (this.state.visibility === 'not-visible') ? 'visible' : 'not-visible';
     }
-    const position = (visibility === 'visible' && this.props.unstyled === false) ? this.calculatePosition() : {};
+    const position = (visibility === 'visible' && this.props.unstyled === false) ?
+      this.calculatePosition(
+        document.body.getBoundingClientRect().width,
+        this.refs.balloon,
+        this.refs.balloonContent
+      ) :
+      {};
     this.setState({
       visibility,
       position,
@@ -118,8 +121,10 @@ export default class Balloon extends React.Component {
     }
     return (
       <div ref="balloon" className={rootClassNames}>
-        {triangleElement}
-        <TriggerLink {...triggerLinkNewProps}/>
+        <span style={{ position: 'relative' }}>
+          {triangleElement}
+          <TriggerLink {...triggerLinkNewProps}/>
+        </span>
         <div
           ref="balloonContent"
           className={contentClassNames}
