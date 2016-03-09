@@ -1,6 +1,5 @@
 import Balloon from '../src';
 import React from 'react';
-import ReactDOM from 'react-dom';
 import TestUtils from 'react-addons-test-utils';
 import chai from 'chai';
 chai.should();
@@ -12,7 +11,7 @@ describe('Balloon', () => {
   });
 
   it('renders a React element', () => {
-    React.isValidElement(<Balloon/>).should.equal(true);
+    React.isValidElement(<Balloon />).should.equal(true);
   });
 
   describe('Rendering', () => {
@@ -31,7 +30,6 @@ describe('Balloon', () => {
 
   describe('Positioning', () => {
     let balloonElement = null;
-
     before(() => {
       const triggerElement = (<a>Trigger link</a>);
       balloonElement = TestUtils.renderIntoDocument(
@@ -45,9 +43,8 @@ describe('Balloon', () => {
       const availableWidth = 400;
       const balloonDOM = { offsetWidth: 207, offsetLeft: 20 };
       const balloonContentDOM = { offsetWidth: 300 };
-
-      balloonElement.
-        __wrappedComponent
+      balloonElement // eslint-disable-line no-underscore-dangle
+        .__wrappedComponent
         .calculatePosition(availableWidth, balloonDOM, balloonContentDOM)
         .should.deep.equal({ left: 0 });
     });
@@ -56,9 +53,8 @@ describe('Balloon', () => {
       const availableWidth = 400;
       const balloonDOM = { offsetWidth: 251, offsetLeft: 129 };
       const balloonContentDOM = { offsetWidth: 300 };
-
-      balloonElement.
-        __wrappedComponent
+      balloonElement // eslint-disable-line no-underscore-dangle
+        .__wrappedComponent
         .calculatePosition(availableWidth, balloonDOM, balloonContentDOM)
         .should.deep.equal({ right: 0 });
     });
@@ -67,9 +63,8 @@ describe('Balloon', () => {
       const availableWidth = 863;
       const balloonDOM = { offsetWidth: 251, offsetLeft: 359 };
       const balloonContentDOM = { offsetWidth: 300 };
-
-      balloonElement.
-        __wrappedComponent
+      balloonElement // eslint-disable-line no-underscore-dangle
+        .__wrappedComponent
         .calculatePosition(availableWidth, balloonDOM, balloonContentDOM)
         .should.deep.equal({ left: -24 });
     });
