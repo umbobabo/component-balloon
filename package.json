@@ -1,6 +1,6 @@
 {
   "name": "@economist/component-balloon",
-  "version": "2.1.0",
+  "version": "0.0.0-development",
   "description": "A balloon that can expose content when an click happens",
   "homepage": "https://github.com/economist-components/component-balloon",
   "bugs": {
@@ -123,7 +123,7 @@
   "devDependencies": {
     "@economist/component-typography": "^1.5.0",
     "@economist/doc-pack": "^1.0.6",
-    "@economist/provision-react-component": "1.6.1",
+    "@economist/provision-react-component": "1.6.4",
     "babel": "^5.8.34",
     "babel-eslint": "^5.0.0",
     "babel-polyfill": "^6.6.1",
@@ -135,11 +135,11 @@
     "eslint-config-strict": "^8.5.0",
     "eslint-config-strict-react": "^8.0.1",
     "eslint-plugin-filenames": "^0.2.0",
-    "eslint-plugin-react": "^4.2.0",
-    "ghooks": "^1.0.1",
+    "eslint-plugin-react": "^4.2.1",
+    "ghooks": "^1.0.3",
     "git-directory-deploy": "^1.5.0",
     "hbs-cli": "^1.0.0",
-    "karma": "^0.13.21",
+    "karma": "^0.13.22",
     "karma-mocha": "^0.2.2",
     "karma-mocha-reporter": "^2.0.0",
     "karma-phantomjs-launcher": "^1.0.0",
@@ -157,13 +157,9 @@
     "react-addons-test-utils": "^0.14.7",
     "react-dom": "^0.14.7",
     "semantic-release": "^4.3.5",
-    "stylelint": "^4.3.5",
-    "stylelint-config-strict": "^2.1.0",
+    "stylelint": "^5.0.1",
+    "stylelint-config-strict": "^4.0.0",
     "validate-commit-msg": "^2.4.0",
     "watchify": "^3.7.0"
-  },
-  "peerDependencies": {
-    "react": "^0.14.3",
-    "react-dom": "^0.14.3"
   }
 }
