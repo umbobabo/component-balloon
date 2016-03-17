@@ -120,7 +120,7 @@ export default class Balloon extends React.Component {
     );
     let triangleElement = null;
     if (triangleShouldDisplay) {
-      triangleElement = (<div className="balloon__triangle" />);
+      triangleElement = (<div className="balloon__triangle" style={{ pointerEvents: 'none' }} />);
     }
     return (
       <div ref="balloon" className={rootClassNames}>
