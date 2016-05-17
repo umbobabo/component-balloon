@@ -27,9 +27,14 @@
   bottom: 100%;
 }
 
+/* stylelint-disable no-indistinguishable-colors */
+/* It's just a drop shadow */
+
 .balloon--shadow {
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.19), 0 6px 10px rgba(0, 0, 0, 0.23);
 }
+
+/* stylelint-enable no-indistinguishable-colors */
 
 .balloon--not-visible .balloon__link::after {
   display: none;
