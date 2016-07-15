@@ -88,6 +88,10 @@ export default class Balloon extends React.Component {
     this.setState({
       visibility,
       position,
+    }, () => {
+      if (visibility === 'visible') {
+        this.refs.balloonContent.focus();
+      }
     });
   }
 
@@ -133,6 +137,7 @@ export default class Balloon extends React.Component {
           className={contentClassNames}
           style={this.state.position}
           {...this.hoverHandlers}
+          tabIndex="0"
         >
           {this.props.children}
         </div>
