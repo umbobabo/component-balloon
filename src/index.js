@@ -1,20 +1,21 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import enhanceWithClickOutside from 'react-click-outside';
 /* eslint-disable no-console */
-export default class Balloon extends React.Component {
+class Balloon extends React.Component {
 
   static propTypes = {
-    className: React.PropTypes.string,
-    children: React.PropTypes.node,
-    shadow: React.PropTypes.bool,
-    balloonPosition: React.PropTypes.oneOf([ 'top', 'bottom' ]),
-    unstyled: React.PropTypes.bool,
-    prefix: React.PropTypes.string,
-    showOnHover: React.PropTypes.bool,
-    showOnHoverDelay: React.PropTypes.number,
-    dynamicPositioning: React.PropTypes.bool,
-    trigger: React.PropTypes.element.isRequired,
+    className: PropTypes.string,
+    children: PropTypes.node,
+    shadow: PropTypes.bool,
+    balloonPosition: PropTypes.oneOf([ 'top', 'bottom' ]),
+    unstyled: PropTypes.bool,
+    prefix: PropTypes.string,
+    showOnHover: PropTypes.bool,
+    showOnHoverDelay: PropTypes.number,
+    dynamicPositioning: PropTypes.bool,
+    trigger: PropTypes.element.isRequired,
   }
 
   static defaultProps = {

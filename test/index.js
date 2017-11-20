@@ -1,8 +1,13 @@
+import 'babel-polyfill';
 import Balloon from '../src';
 import React from 'react';
 import chai from 'chai';
+import Enzyme from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import { mount } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
+
+Enzyme.configure({ adapter: new Adapter() });
 chai.use(chaiEnzyme()).should();
 
 function mountBalloon(children) {
@@ -39,8 +44,8 @@ describe('Balloon', () => {
       const balloon = mountBalloonWithProps();
       balloon.should.have.exactly(1).descendants('a');
       balloon.find('a').should.have.text('Trigger link');
-      balloon.childAt(1).should.have.tagName('div');
-      balloon.childAt(1).should.have.text('Content element');
+      balloon.childAt(0).should.have.tagName('div');
+      balloon.find('.balloon-content').should.have.text('Content element');
     });
   });
 
