@@ -79,7 +79,8 @@ describe('Balloon', () => {
   describe('Positioning', () => {
     let balloonElement = null;
     before(() => {
-      balloonElement = mountBalloonWithProps().get(0).__wrappedComponent; // eslint-disable-line no-underscore-dangle
+      balloonElement = mountBalloonWithProps() // eslint-disable-line no-underscore-dangle
+        .instance().__wrappedComponent;
     });
 
     it('should return { left: 0 }', () => {
