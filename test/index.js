@@ -54,9 +54,9 @@ describe('Balloon', () => {
       const trigger = externalControledBalloon.find('a');
       const balloon = externalControledBalloon.find(Balloon);
       trigger.simulate('click');
-      balloon.should.have.className('external--visible');
+      balloon.should.have.className('custom-classname--visible');
       trigger.simulate('click');
-      balloon.should.have.className('external--not-visible');
+      balloon.should.have.className('custom-classname--not-visible');
     });
   });
 

@@ -21,7 +21,7 @@ const exampleThreeTrigger = (
 export class ExternalControlledBalloon extends React.Component {
   static propTypes = {
     open: PropTypes.bool,
-  }
+  };
   constructor(props) {
     super();
     this.state = {
@@ -42,7 +42,7 @@ export class ExternalControlledBalloon extends React.Component {
         <a href="#" onClick={this.handleHideBalloon}>
           External controller link
         </a>
-        <Balloon unstyled balloonPosition="top" prefix="external"
+        <Balloon unstyled balloonPosition="top" prefix="custom-classname"
           visible={this.state.open}
         >
           <div>Opened by default</div>
