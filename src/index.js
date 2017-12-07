@@ -16,6 +16,7 @@ class Balloon extends React.Component {
     dynamicPositioning: PropTypes.bool,
     trigger: PropTypes.element,
     visible: PropTypes.bool,
+    open: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -33,12 +34,11 @@ class Balloon extends React.Component {
     this.state = {
       visibility: this.props.visible ? 'visible' : 'not-visible',
     };
-    this.hoverHandlers = this.props.showOnHover
-      ? {
+    this.hoverHandlers = this.props.showOnHover ?
+      {
         onMouseOver: this.changeVisibility.bind(this, 'visible'),
         onMouseOut: this.changeVisibility.bind(this, 'not-visible'),
-      }
-      : {};
+      } : {};
     this.toggleState = this.toggleState.bind(this);
   }
 
@@ -95,13 +95,12 @@ class Balloon extends React.Component {
       visibility = this.state.visibility === 'not-visible' ? 'visible' : 'not-visible';
     }
     const position =
-      visibility === 'visible' && unstyled === false && dynamicPositioning
-        ? this.calculatePosition(
+      visibility === 'visible' && unstyled === false && dynamicPositioning ?
+        this.calculatePosition(
             document.body.getBoundingClientRect().width,
             this.refs.balloon,
             this.refs.balloonContent
-          )
-        : {};
+          ) : {};
     this.setState(
       {
         visibility,

@@ -1,6 +1,7 @@
 import Balloon from './';
 import Button from '@economist/component-link-button';
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const exampleOneTrigger = (
   <a href="https://www.economist.com/user/login" className="balloon-link">
@@ -18,6 +19,9 @@ const exampleThreeTrigger = (
   </Button>
 );
 export class ExternalControlledBalloon extends React.Component {
+  static propTypes = {
+    open: PropTypes.bool,
+  }
   constructor(props) {
     super();
     this.state = {
@@ -38,7 +42,9 @@ export class ExternalControlledBalloon extends React.Component {
         <a href="#" onClick={this.handleHideBalloon}>
           External controller link
         </a>
-        <Balloon unstyled balloonPosition="top" prefix="external" visible={this.state.open}>
+        <Balloon unstyled balloonPosition="top" prefix="external"
+          visible={this.state.open}
+        >
           <div>Opened by default</div>
         </Balloon>
       </div>
@@ -59,7 +65,9 @@ export default (
       </Balloon>
     </div>
     <div className="balloon-example right">
-      <Balloon unstyled balloonPosition="top" prefix="custom-classname" trigger={exampleThreeTrigger}>
+      <Balloon unstyled balloonPosition="top" prefix="custom-classname"
+        trigger={exampleThreeTrigger}
+      >
         <div>The position of the balloon, as its width, can be styled by the context.</div>
       </Balloon>
     </div>
